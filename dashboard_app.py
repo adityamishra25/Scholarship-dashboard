@@ -13,7 +13,7 @@ DATA_PATH = "master_dataset.csv"
 if not os.path.exists(DATA_PATH):
     gdown.download(
         "https://drive.google.com/uc?id=1qfqIGGDKBfrBo0sEN1AwiyOFSFvk6iYN",
-        DATA_PATH, quiet=False, fuzzy=True
+        DATA_PATH, quiet=False
     )
 
 df = pd.read_csv(DATA_PATH)
