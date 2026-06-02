@@ -3,15 +3,20 @@ import plotly.graph_objects as go
 import plotly.express as px
 from dash import Dash, dcc, html, Input, Output, dash_table
 import warnings
+import gdown
+import os
 warnings.filterwarnings("ignore")
 
 # ── Load & preprocess ──────────────────────────────────────────────────────────
-DATA_PATH = r"C:\Users\aditya_m\Desktop\data\processed\master_dataset.csv"
+DATA_PATH = "master_dataset.csv"
 
-try:
-    df = pd.read_csv(DATA_PATH)
-except FileNotFoundError:
-    df = pd.read_csv("/mnt/user-data/uploads/master_dataset.csv")
+if not os.path.exists(DATA_PATH):
+    gdown.download(
+        "https://drive.google.com/uc?id=1qfqIGGDKBfrBo0sEN1AwiyOFSFvk6iYN",
+        DATA_PATH, quiet=False
+    )
+
+df = pd.read_csv(DATA_PATH)
 
 df["registration_date"] = pd.to_datetime(df["registration_date"], dayfirst=True, errors="coerce")
 df["payment_date"]      = pd.to_datetime(df["payment_date"],      dayfirst=True, errors="coerce")
